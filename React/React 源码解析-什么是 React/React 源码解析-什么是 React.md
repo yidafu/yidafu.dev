@@ -1,4 +1,10 @@
-# React?&#x20;
+---
+title: "What is React?"
+cover: ../../images/react.png
+---
+
+
+# React?
 
 > React isn't react ?
 

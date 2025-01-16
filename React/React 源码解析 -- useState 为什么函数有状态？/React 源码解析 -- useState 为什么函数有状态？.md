@@ -1,3 +1,8 @@
+---
+title: "useState -- Why function does have state?"
+cover: ../../images/react.png
+---
+
 在hooks之前的函数组件都是纯函数，只用于由`props`数据渲染UI的场景。状态都是由类组件来实现的。
 
 ```typescript
