@@ -19,8 +19,58 @@ cover: ./images/react.png
 
 进一步精细化，使用一个 React Native 实例，将拆分多个成多个 bundle，按需加载 bundle 在运行时执行。后面内容就是基于这个方案来的叙述。
 
+# 实现步骤
+
 ## JS 分包
 
+### 分包策略
+
+需要将代码分成公共 bundle + 业务 bundle。
+
+```mermaid
+block-beta
+
+columns 1
+  block:Biz
+    Biz1["Biz1 Bundle"] space Biz2["Biz2 Bundle"]
+  end
+  space
+  Common["Common Bundle"]
+
+Common --> Biz
+```
+
+React Native 运行时先加载 Common Bundle，打开业务的 Activity 时再加载业务 Bundle。
+
+### 分包实现
+
+创建`index.common.js`，主要是引入公共依赖。
+
+```js
+import "react"
+import "react-native"
+// 共享的第三方库
+import "other-dependencies"
+// ...
+// 项目的公共依赖
+import "./common/shared.js"
+```
+
+创建`metro.common.config.js`
+
+```js
+const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
+
+/**
+ * Metro configuration
+ * https://reactnative.dev/docs/metro
+ *
+ * @type {import('@react-native/metro-config').MetroConfig}
+ */
+const config = {};
+
+module.exports = mergeConfig(getDefaultConfig(__dirname), config);
+```
 
 
 ## Ref
